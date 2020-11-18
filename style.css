@@ -1,3 +1,80 @@
-* {
-    background-color: lightsalmon;
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
+body {
+    margin: 40px;
+    background-color: white;
 }
+h1 {
+    font-family: 'Luckiest Guy', cursive;
+    color: rgb(236, 88, 88);
+}
+h2 { 
+    font-family: 'Luckiest Guy', cursive;
+    color: white;
+}
+h3 {
+    font-family: 'Raleway', sans-serif;
+    color: white;
+}
+button {
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    border-radius: 8px;
+    background-color: white;
+    color: darkgrey;
+    border: 2px solid darkgrey;
+    padding: 5px;
+    margin: 10px;
+  }
+  .constainer{
+      height: 300px;
+      width: 100%;
+  }
+  #stopwatch {
+      width: 100%;
+      font-size: 60px;
+      color: darkgrey;
+      font-family: 'Raleway', sans-serif;
+      /* text-align: center; */
+      margin: 0px auto;
+  }
+  /* #startreset{
+    display: flexbox;
+    justify-content: center;
+  } */
+.grid {
+    max-width: 650px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.card {
+    margin: 5px;
+    /* background-color: rgb(236, 88, 88); */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 150px;
+    width: 150px;
+  }
+
+.modal {
+    background-color: rgb(236, 88, 88);
+    padding: 30px;
+    width: 50vw;
+    max-width: 500px;
+    text-align: center;
+    border-radius: 4px;
+    position: fixed;
+    top: 45%;
+    /* centering */
+    transform: translateY(-45%) ;
+    left: 0;
+    right: 0;
+    margin: auto;
+    display: none;
+  }
+  .modal.open {
+    display: block;
+  
+  }
