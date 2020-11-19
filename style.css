@@ -54,9 +54,30 @@ button {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center center;
-    height: 150px;
-    width: 150px;
-  }
+
+}
+.card,
+.back,
+.front {
+  height: 150px;
+  width: 150px;
+}
+
+.back,
+.front {
+  position: absolute;
+}
+
+.front {
+  background: white;
+}
+
+.back {
+  background-color: rgb(236, 88, 88);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
 
 .modal {
     background-color: rgb(236, 88, 88);
@@ -73,8 +94,8 @@ button {
     right: 0;
     margin: auto;
     display: none;
-  }
+}
   .modal.open {
     display: block;
   
-  }
+}
