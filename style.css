@@ -35,20 +35,20 @@ button {
       font-size: 60px;
       color: darkgrey;
       font-family: 'Raleway', sans-serif;
-      /* text-align: center; */
+      text-align: center;
       margin: 0px auto;
   }
   /* #startreset{
     display: flexbox;
     justify-content: center;
   } */
-.grid {
+/* .grid {
     max-width: 650px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly center;
     align-items: center;
-}
+} */
 .card {
     margin: 5px;
     /* background-color: rgb(236, 88, 88); */
@@ -57,32 +57,28 @@ button {
     background-position: center center;
 
 }
-.card,
-.animal,
-.recollectionFace {
+.card {
   height: 150px;
   width: 150px;
 }
-  
-.animal,
-.recollectionFace {
-  position: absolute;
-}
 
-.recollectionFace {
+  
+
+
+
+.front {
   background: white;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
 }
 
-.animal {
+.back {
   background-color: white;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
 }
-
 
 .modal {
     background-color: rgb(236, 88, 88);
@@ -103,4 +99,36 @@ button {
   .modal.open {
     display: block;
   
+}
+.card.flip {
+    transform: rotateY(180deg);
+}
+.grid {
+    width: 640px;
+    height: 640px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    perspective: 1000px;
+  }
+  .card {
+    width: calc(25% - 10px);
+    height: calc(33.333% - 10px);
+    margin: 5px;
+    position: relative;
+
+    transform-style: preserve-3d;
+    transition: transform .5s;
+  }
+  .front, .back {
+    width: 100%;
+    height: 100%;
+    padding: 100;
+    position: absolute;
+    border-radius: 5px;
+    backface-visibility: hidden;
+}
+
+.front {
+    transform: rotateY(180deg);
 }
