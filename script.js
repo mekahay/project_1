@@ -35,6 +35,8 @@ const modal = document.querySelector('.modal')
 const gameBoard = document.getElementById('gameboard')
 const continueButton = document.querySelector('.continue')
 const playButton = document.getElementById('play')
+//const container = document.querySelector('.container')
+
 //stopwatch//
 let seconds = 0;
 let minutes = 0;
@@ -93,7 +95,7 @@ let fullAnimalArray = animalArray.concat(animalArray);
 let i = fullAnimalArray.length, k , temp;
 while(--i > 0){
     k = Math.floor(Math.random() * (i+1));
-    temp=fullAnimalArray[k];
+    temp = fullAnimalArray[k];
     fullAnimalArray[k] = fullAnimalArray[i]
     fullAnimalArray[i] = temp;
 }
@@ -103,54 +105,51 @@ const toggleFirstModal = () => {
 };
 //creategrid for game board
 
-let grid = document.createElement('div')
 
+// const toggleContainer = () => {
+//     container.classList.toggle('open');
+// };
+
+let grid = document.createElement('div')
 const openGrid = () => {
     grid.setAttribute('class', 'grid');
     gameBoard.appendChild(grid);
     modal.remove();
+    // toggleContainer();
 }    
 
 
 fullAnimalArray.forEach((item) => {
     let name = item.name;
-    let img = item.backImg;
+    let backImg = item.backImg;
     let frontImg = item.frontImg;
     console.log(item.frontImg)
+    
     const card = document.createElement('div');
     card.classList.add('card');
     card.dataset.name = name;
     
-    let front = document.createElement('div');
-    front.classList.add('front');
-    front.style.backgroundImage = `url(${item.frontImg})`;
+    let animal = document.createElement('div')
+    animal.classList.add('animal')
+    animal.style.backgroundImage = `url(${item.backImg})`;
     
-    let back = document.createElement('div')
-    back.classList.add('back')
-    back.style.backgroundImage = `url(${item.img})`;
+    let recollectionFace = document.createElement('div');
+    recollectionFace.classList.add('recollectionFace');
+    recollectionFace.style.backgroundImage = `url(${item.frontImg})`;
     
-    card.appendChild(front);
-    card.appendChild(back)
+    
+    card.appendChild(recollectionFace);
+    card.appendChild(animal)
     grid.appendChild(card);
     
 });
 
-// for (let i = 0; i < animalArray; i++) {
-//     let animal = getRandomItem(animalArray);
-//     animalArray[i].innerHTML = aminal.image
-// }
 
 
-
-//randomize cards
-// let randomNum = Math.floor(Math.random() * animalArray.length)
-
-//fisher yates randomize
-//let i = animalArray.length, k , temp;
 
 
 //stopwatch
-// if seconds/minutes is only 1 diget add 0 before value
+// if seconds/minutes is only 1 dig add 0 before value
 function stopWatch(){
     seconds++;
     //logic to determine when to increment next value
@@ -191,3 +190,4 @@ EVENT LISTENERS
 startButton.addEventListener('click', toggleFirstModal);
 continueButton.addEventListener('click', openGrid);
 playButton.addEventListener('click', play)
+// continueButton.addEventListener('click', toggleContainer)

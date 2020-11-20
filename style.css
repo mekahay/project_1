@@ -25,10 +25,10 @@ button {
     border: 2px solid darkgrey;
     padding: 5px;
     margin: 10px;
-  }
-  .constainer{
+}
+  .container{
       height: 300px;
-      width: 100%;
+      width: 100%; 
   }
   #stopwatch {
       width: 100%;
@@ -46,7 +46,8 @@ button {
     max-width: 650px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-evenly center;
+    align-items: center;
 }
 .card {
     margin: 5px;
@@ -57,27 +58,31 @@ button {
 
 }
 .card,
-.back,
-.front {
+.animal,
+.recollectionFace {
   height: 150px;
   width: 150px;
 }
-
-.back,
-.front {
+  
+.animal,
+.recollectionFace {
   position: absolute;
 }
 
-.front {
+.recollectionFace {
   background: white;
-}
-
-.back {
-  background-color: rgb(236, 88, 88);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
 }
+
+.animal {
+  background-color: white;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
 
 .modal {
     background-color: rgb(236, 88, 88);
