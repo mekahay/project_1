@@ -31,11 +31,12 @@
 // DOM NOTES
 // =======================*/
 const startButton = document.querySelector('.start')
-const modal = document.querySelector('.modal')
+const firstModal = document.querySelector('.modal')
 const gameBoard = document.getElementById('gameboard')
 const continueButton = document.querySelector('.continue')
 const playButton = document.getElementById('play')
 const resetButton = document.getElementById('reset')
+
 //const container = document.querySelector('.container')
 
 //stopwatch//
@@ -85,27 +86,25 @@ const animalArray = [
         backImg: 'emojis/animal6.png',
     }
 ] 
-/* ======================
-GLOBAL VARIABLES
-=======================*/
+
 /* ======================
 FUNCTIONS
 =======================*/
-let fullAnimalArray = animalArray.concat(animalArray);
+let fullArray = animalArray.concat(animalArray);
 const shuffle = () => {
-    let i = fullAnimalArray.length, k , temp;
+    let i = fullArray.length, k , temp;
     while(--i > 0){
         k = Math.floor(Math.random() * (i+1));
-        temp = fullAnimalArray[k];
-        fullAnimalArray[k] = fullAnimalArray[i]
-        fullAnimalArray[i] = temp;
+        temp = fullArray[k];
+        fullArray[k] = fullArray[i]
+        fullArray[i] = temp;
     }
 }
  //console.log(fullAnimalArray)
 const toggleFirstModal = () => {
-    modal.classList.toggle('open');
+    firstModal.classList.toggle('open');
 };
-//creategrid for game board
+//create grid for game board
 
 
 // const toggleContainer = () => {
@@ -113,7 +112,7 @@ const toggleFirstModal = () => {
 // };
 
 const openGrid = () => {
-    modal.remove();
+    firstModal.remove();
     shuffle();
     createGrid();
     // toggleContainer();
@@ -123,13 +122,14 @@ const createGrid = () => {
     let grid = document.createElement('div')
     grid.setAttribute('class', 'grid');
     gameBoard.innerHTML = "";
-    fullAnimalArray.forEach((item) => {
+    fullArray.forEach((item, index) => {
         let name = item.name;
         let backImg = item.backImg;
         let frontImg = item.frontImg;
         
         const card = document.createElement('div');
         card.classList.add('card');
+        // card.setAttribute('id', index)
         card.dataset.name = name;
         
         let back = document.createElement('div')
@@ -142,22 +142,121 @@ const createGrid = () => {
         
         
         card.appendChild(front);
-        card.appendChild(back)
+        card.appendChild(back);
         grid.appendChild(card);
         
     });
     
     gameBoard.appendChild(grid);
-    
-    const cards = document.querySelectorAll('.card')
-    
-    
-    function flipCard() {
+        
+    const cards = document.querySelectorAll('.card');
+
+    function flip(evt) {
         this.classList.add('flip');
+        //console.log(evt.target.parentElement.getAttribute('data-name'))
+    }
+    //adds event listener to all cards
+    cards.forEach(card => card.addEventListener('click', flip))
+    // if class = card.flip?
+    // less then 2 elements in the array add 1 element then flip 2nd card check to see if they have same data-name if dont math empty array 
+    // if there is check to see if that has the same data name
+    // use getattribute for data name
+    // same data name = match
+    // store both (array etc)
+    // remove class flip 
+    //  add class match
+    
+    let flippedCards = [];
+    //let matchedCards = document.getElementsByClassName("isMatch")
+   
+    const click = (event) => {
+        flippedCards.push(event.target.parentElement.getAttribute('data-name'))
+        console.log(flippedCards)
+        if (flippedCards.length === 2){
+            if(flippedCards[0] === flippedCards[1]) {
+                console.log(flippedCards)
+                isMatch();
+            } else {
+                isNotMatch()
+            }
+        }
     }
 
-    cards.forEach(card => card.addEventListener('click', flipCard))
+    const isMatch = () => {
+        card.classList.add('isMatch')
+        console.log('Match!')
+        flippedCards = [];
+        //changes class to isMatch, 
+        
+        // function addIsMatch(event) {
+        //     let addClassIsMatch = querySelector('.card')
+        //     addClassIsMatch.classList.add('isMatch')
+        // }
+        //add 10
+         
+
+        //add to completed array,
+        console.log('its a match!')
+
+    }
+
+    const isNotMatch = () => {
+        document.getElementsByClassName('card').removeClassName('flip')
+        console.log('No Match!')
+        flippedCards = [];
+       
+    }
+
+
+    // const match = (event) => {
+    //     matchedCards.push(event.target.getAttribute('.isMatch'))
+    //     if (matchedCards[] >= 12) {
+    //     add points
+    //     
+    //         //toggleCongratsModal();
+    //         console.log('you win!!')
+    //     }
+    // }
+    
+ 
+
+    cards.forEach(card => card.addEventListener('click', click))
 }
+
+// function click(){
+//     let length = openCards.length;
+//     if (length === 2) {
+//         if (openCards[0].getAttribute('data-name') === openCards[1].getAttribute('data-name')) {
+//             isMatch();
+//         } else {
+//             isNotMatch();
+//         }
+//     }
+// }
+// function isMatch () {
+
+// }
+
+
+
+
+//score
+// let score = 0
+//
+
+
+
+// function begin game 
+// call function to keep game going
+
+
+
+
+
+
+
+
+
 
 
 
