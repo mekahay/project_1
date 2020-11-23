@@ -104,6 +104,11 @@ button {
     margin: auto;
     display: none;
 }
+.modalclose {
+    display: flexbox;
+    justify-content: flex-end;
+    cursor: pointer;
+}
 .nextLevelModal.open {
     display: block;
 }

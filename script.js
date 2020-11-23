@@ -1,32 +1,4 @@
-// console.log('yes, i am connected')
-// /* ======================
-// Psudocode
-// =======================*/
-// // modal appears on 'click' modal dissapear, game board appears
-// // player click play, on 'click' time begins to increase 
-// // https://www.youtube.com/watch?v=1INmsFnD-u4
-// // https://www.w3schools.com/jsref/met_win_setinterval.asp
-// // https://stackoverflow.com/questions/56659035/creating-a-simple-stopwatch-html
-// // https://www.codegrepper.com/code-examples/javascript/how+to+make+a+stopwatch+using+js
-// // 5 seconds - 10 points 
-// // cards array []
-// // https://www.taniarascia.com/how-to-create-a-memory-game-super-mario-with-plain-javascript/
-// // function randomize card location
-// // https://www.peachpit.com/articles/article.aspx?p=2239154&seqNum=10
-// // https://www.tutorialspoint.com/what-is-fisher-yates-shuffle-in-javascript
-// // on 'click', flip card
-// // function for flip card
-// // if first card === true then remain 
-// // if second card === true && check for a match === true remain face up & +15points
-// // check match function 
-// // match/not match logic use this (true ? stay flipped : (otherwise) flip back over) 
-// // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
-// // if match remove option to 'click' on those cards
-// // https://www.techiedelight.com/copy-elements-array-into-another-array-javascript/
-// // update current points in dom
-// // function for cards flipping back (set interval 1500)
-// // 
-// // if all cards flipped clock stops game over modal of pts appears
+
 
 // /* ======================
 // DOM NOTES
@@ -39,20 +11,20 @@ const playButton = document.getElementById('play')
 const resetButton = document.getElementById('reset')
 const points = document.querySelector('.points')
 const nextLevelModal = document.querySelector('.nextLevelModal')
+const constinue2Button = document.querySelector('.continue2')
 
-//const container = document.querySelector('.container')
 
-//stopwatch//
-let seconds = 0;
-let minutes = 0;
-// define let/const to hold 'display; value
-let displaySeconds = 0;
-let displayMinutes= 0;
+// //stopwatch//
+// let seconds = 0;
+// let minutes = 0;
+// // define let/const to hold 'display; value
+// let displaySeconds = 0;
+// let displayMinutes= 0;
 
 // let/const to hold setInterval function until start pushed
 let setInterval=null;
 // let/const to hold stopwatch status
-let status = false;
+// let status = false;
 let count = 0
 // /* ======================
 // CREATE CARDS
@@ -114,7 +86,7 @@ const openGrid = () => {
     firstModal.remove();
     shuffle();
     createGrid();
-
+    
 }    
 
 const createGrid = () => {
@@ -161,12 +133,12 @@ const createGrid = () => {
             </div>`
         }
         addPoints(){
-            this.points= +10;
+            this.points +=10;
             this.updatePoints();
         }
     
     }
-    const player1 = new Player()
+    const player1 = new Player(0)
     function flip(evt) {
         this.classList.toggle('flip');
         //console.log(evt.target.parentElement.getAttribute('data-name'))
@@ -193,7 +165,7 @@ const createGrid = () => {
             }
         }
     }
-    
+
     const isMatch = () => {
         console.log('Match!')
         //give matched cards a class of isMatch
@@ -208,10 +180,13 @@ const createGrid = () => {
         flippedCards = [];
         flippedCardsIds=[]; 
         //add 10 points per match
-        player1.addPoints(); 
-        // for (let i = 1; i<=6; i++) {
-        //     player1.addPoints();
-        // }     
+        player1.addPoints();
+        
+        // if (matchedCards.length >= 12) {
+        //     toggleNextLevel();
+        //     closeNextModalX();
+        // }
+     
     }
        
     const isNotMatch = () => {
@@ -224,13 +199,12 @@ const createGrid = () => {
         }, 1000);
     }
     
-    const toggleNextLevel = () => {
-        nextLevelModal.classList.toggle('.open')
-    }
-    
-    if(matchedCards === 12) {
-        toggleNextLevel();
-    } 
+    // const toggleNextLevel = () => {
+    //     nextLevelModal.classList.toggle('open')
+    // }
+    // const closeNextModalX = () => {
+    //     nextLevelModal.classList.toggle('close')
+    // }
 
     cards.forEach(card => card.addEventListener('click', click))
 }
@@ -277,3 +251,5 @@ continueButton.addEventListener('click', openGrid);
 //playButton.addEventListener('click', play)
 resetButton.addEventListener('click', openGrid)
 // continueButton.addEventListener('click', toggleContainer)
+// constinue2Button.addEventListener('click', openGrid)
+// closeNextModal.addEventListener('click', closeNextModalX)
