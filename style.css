@@ -1,20 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
 body {
-    margin: 40px;
     background-color: white;
-
 }
 h1 {
     font-size: 60px;
     font-family: 'Luckiest Guy', cursive;
     color: rgb(236, 88, 88);
-    text-align: center;
+    /* text-align: center; */
 }
-header {
-    display: flexbox;
-    justify-content: center;
-}
+
 h2 { 
     font-family: 'Luckiest Guy', cursive;
     color: white;
@@ -34,7 +29,7 @@ button {
     margin: 10px;
 }
 .container{
-    height: 300px;
+    height: 100px;
     width: 100%; 
 }
 #stopwatch {
@@ -50,7 +45,6 @@ button {
     font-family: 'Raleway', sans-serif;
     margin: 0px auto; 
 }
-
 .card {
     margin: 5px;
     /* background-color: rgb(236, 88, 88); */
@@ -60,24 +54,21 @@ button {
 
 }
 .card {
-  height: 150px;
-  width: 150px;
+    height: 150px;
+    width: 150px;
 }
-
 .front {
-  background: white;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center center;
+    background: white;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
-
 .back {
-  background-color: white;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center center;
+    background-color: white;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
-
 .modal {
     background-color: rgb(236, 88, 88);
     padding: 30px;
@@ -97,7 +88,7 @@ button {
 .modal.open {
     display: block;
 }
-.next-level-modal {
+.nextLevelModal {
     background-color: rgb(236, 88, 88);
     padding: 30px;
     width: 50vw;
@@ -113,15 +104,15 @@ button {
     margin: auto;
     display: none;
 }
-.next-level-modal.open {
+.nextLevelModal.open {
     display: block;
 }
 .card.flip {
     transform: rotateY(180deg);
 }
 .card.isMatch {
-transform: rotateY(180deg);
-pointer-events: none;
+    transform: rotateY(180deg);
+    pointer-events: none;
 }
 
 .grid {

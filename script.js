@@ -22,6 +22,7 @@
 // // match/not match logic use this (true ? stay flipped : (otherwise) flip back over) 
 // // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
 // // if match remove option to 'click' on those cards
+// // https://www.techiedelight.com/copy-elements-array-into-another-array-javascript/
 // // update current points in dom
 // // function for cards flipping back (set interval 1500)
 // // 
@@ -37,7 +38,7 @@ const continueButton = document.querySelector('.continue')
 const playButton = document.getElementById('play')
 const resetButton = document.getElementById('reset')
 const points = document.querySelector('.points')
-
+const nextLevelModal = document.querySelector('.nextLevelModal')
 
 //const container = document.querySelector('.container')
 
@@ -52,7 +53,7 @@ let displayMinutes= 0;
 let setInterval=null;
 // let/const to hold stopwatch status
 let status = false;
-// stopwatch function (logic to determine next increment)
+let count = 0
 // /* ======================
 // CREATE CARDS
 // =======================*/
@@ -113,10 +114,8 @@ const openGrid = () => {
     firstModal.remove();
     shuffle();
     createGrid();
-    // toggleContainer();
+
 }    
-
-
 
 const createGrid = () => {
     let grid = document.createElement('div')
@@ -162,7 +161,7 @@ const createGrid = () => {
             </div>`
         }
         addPoints(){
-            this.points = +10;
+            this.points= +10;
             this.updatePoints();
         }
     
@@ -174,19 +173,12 @@ const createGrid = () => {
     }
     //adds event listener to all cards
     cards.forEach(card => card.addEventListener('click', flip))
-    // if class = card.flip?
-    // less then 2 elements in the array add 1 element then flip 2nd card check to see if they have same data-name if dont math empty array 
-    // if there is check to see if that has the same data name
-    // use getattribute for data name
-    // same data name = match
-    // store both (array etc)
-    // remove class flip 
-    //  add class match
     
     let flippedCards = [];
     //let matchedCards = document.getElementsByClassName("isMatch")
     let flippedCardsIds = [];
     let matchedCards = [];
+    //pushes flipped cards into two arrays them decides if it is match or not
     const click = (event) => {
         flippedCards.push(event.target.parentElement.getAttribute('data-name'))
         flippedCardsIds.push(event.target.parentElement.getAttribute('id'))
@@ -201,31 +193,27 @@ const createGrid = () => {
             }
         }
     }
-
+    
     const isMatch = () => {
         console.log('Match!')
+        //give matched cards a class of isMatch
+        document.getElementById(flippedCardsIds[0]).classList.add('isMatch')
+        document.getElementById(flippedCardsIds[1]).classList.add('isMatch')
+        console.log(matchedCards)
         //push isMatch cards into an array matchedCards
         for (let i of flippedCardsIds) {
             matchedCards.push(i);
         }
-        //give matched cards a class of is
-        document.getElementById(flippedCardsIds[0]).classList.add('isMatch')
-        document.getElementById(flippedCardsIds[1]).classList.add('isMatch')
-        console.log(matchedCards)
         //clear flipped arrays to start matching again
         flippedCards = [];
-        flippedCardsIds=[];
+        flippedCardsIds=[]; 
         //add 10 points per match
-        player1.addPoints();
+        player1.addPoints(); 
+        // for (let i = 1; i<=6; i++) {
+        //     player1.addPoints();
+        // }     
     }
-    // const matchedCardsArray = () => {
-    //         let matchedCardsArray = document.getElementsByClassName('isMatch')
-    //         const matchedCards = flippedCards
-    //         for (let i = 0; i < matchedCardsArray.length; i++) {
-    //                 console.log(matchedCardsArray[i])
-    //             }
-    //         }
-            
+       
     const isNotMatch = () => {
         setTimeout(() => {
         document.getElementById(flippedCardsIds[0]).classList.toggle('flip')
@@ -235,87 +223,57 @@ const createGrid = () => {
         flippedCardsIds=[]  
         }, 1000);
     }
-
-
-    const nextLevel = () => {
-        if (matchedCards === 12) {
-            const nextLevelModal = document.createElement('div')
-            nextLevelModal.setAttribute('nextLevelModal')
-        }
+    
+    const toggleNextLevel = () => {
+        nextLevelModal.classList.toggle('.open')
     }
-    // const toggleNextLevel= () => {
-    //     // if (matchedCards === 12)
-    //     nextLevelModal.classList('open');
-    // };    
+    
+    if(matchedCards === 12) {
+        toggleNextLevel();
+    } 
 
     cards.forEach(card => card.addEventListener('click', click))
 }
 
+// //stopwatch ---- fully functional it just doesnt serve a purpose yet ----
+// //if seconds/minutes is only 1 dig add 0 before value
+// function stopWatch(){
+//     seconds++;
+//     //logic to determine when to increment next value
+//     if(seconds / 60 ===1){
+//         seconds=0;
+//         minutes++
+//     }
+//     if(seconds < 10){
+//         displaySeconds = '0' + seconds.toString();
+//     }else{
+//         displaySeconds = seconds;
+//     }
+//     if(minutes < 10){
+//         displayMinutes = '0' + minutes.toString();
+//     } else { 
+//         displayMinutes = minutes;
+//     }
+//     // display updated time
+//     document.getElementById('stopwatch').innerHTML = displayMinutes + ':' + displaySeconds;
 
+// }
 
-
-
-//score
-// let score = 0
-//
-
-
-
-// function begin game 
-// call function to keep game going
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//stopwatch
-//if seconds/minutes is only 1 dig add 0 before value
-function stopWatch(){
-    seconds++;
-    //logic to determine when to increment next value
-    if(seconds / 60 ===1){
-        seconds=0;
-        minutes++
-    }
-    if(seconds < 10){
-        displaySeconds = '0' + seconds.toString();
-    }else{
-        displaySeconds = seconds;
-    }
-    if(minutes < 10){
-        displayMinutes = '0' + minutes.toString();
-    } else { 
-        displayMinutes = minutes;
-    }
-    // display updated time
-    document.getElementById('stopwatch').innerHTML = displayMinutes + ':' + displaySeconds;
-
-}
-
-function play(){
-    if(status === false){
-        interval = window.setInterval(stopWatch, 1000)
-        status = true
-    } else {
-        window.clearInterval(interval);
-        status = false
-    }
-}
+// function play(){
+//     if(status === false){
+//         interval = window.setInterval(stopWatch, 1000)
+//         status = true
+//     } else {
+//         window.clearInterval(interval);
+//         status = false
+//     }
+// }
 
 /* ======================
 EVENT LISTENERS
 =======================*/
 startButton.addEventListener('click', toggleFirstModal);
 continueButton.addEventListener('click', openGrid);
-playButton.addEventListener('click', play)
+//playButton.addEventListener('click', play)
 resetButton.addEventListener('click', openGrid)
 // continueButton.addEventListener('click', toggleContainer)
