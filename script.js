@@ -15,16 +15,16 @@ const constinue2Button = document.querySelector('.continue2')
 
 
 // //stopwatch//
-// let seconds = 0;
-// let minutes = 0;
-// // define let/const to hold 'display; value
-// let displaySeconds = 0;
-// let displayMinutes= 0;
+let seconds = 0;
+let minutes = 0;
+// define let/const to hold 'display; value
+let displaySeconds = 0;
+let displayMinutes= 0;
 
 // let/const to hold setInterval function until start pushed
 let setInterval=null;
 // let/const to hold stopwatch status
-// let status = false;
+let status = false;
 let count = 0
 // /* ======================
 // CREATE CARDS
@@ -85,8 +85,7 @@ const shuffle = () => {
 const openGrid = () => {
     firstModal.remove();
     shuffle();
-    createGrid();
-    
+    createGrid();   
 }    
 
 const createGrid = () => {
@@ -172,7 +171,7 @@ const createGrid = () => {
         document.getElementById(flippedCardsIds[0]).classList.add('isMatch')
         document.getElementById(flippedCardsIds[1]).classList.add('isMatch')
         console.log(matchedCards)
-        //push isMatch cards into an array matchedCards
+        //push isMatch cards into an array matchedCards (i is that elements in flippedcardsids)
         for (let i of flippedCardsIds) {
             matchedCards.push(i);
         }
@@ -209,46 +208,46 @@ const createGrid = () => {
     cards.forEach(card => card.addEventListener('click', click))
 }
 
-// //stopwatch ---- fully functional it just doesnt serve a purpose yet ----
-// //if seconds/minutes is only 1 dig add 0 before value
-// function stopWatch(){
-//     seconds++;
-//     //logic to determine when to increment next value
-//     if(seconds / 60 ===1){
-//         seconds=0;
-//         minutes++
-//     }
-//     if(seconds < 10){
-//         displaySeconds = '0' + seconds.toString();
-//     }else{
-//         displaySeconds = seconds;
-//     }
-//     if(minutes < 10){
-//         displayMinutes = '0' + minutes.toString();
-//     } else { 
-//         displayMinutes = minutes;
-//     }
-//     // display updated time
-//     document.getElementById('stopwatch').innerHTML = displayMinutes + ':' + displaySeconds;
+//stopwatch ---- fully functional it just doesnt serve a purpose yet ----
+//if seconds/minutes is only 1 dig add 0 before value
+function stopWatch(){
+    seconds++;
+    //logic to determine when to increment next value
+    if(seconds / 60 ===1){
+        seconds=0;
+        minutes++
+    }
+    if(seconds < 10){
+        displaySeconds = '0' + seconds.toString();
+    }else{
+        displaySeconds = seconds;
+    }
+    if(minutes < 10){
+        displayMinutes = '0' + minutes.toString();
+    } else { 
+        displayMinutes = minutes;
+    }
+    // display updated time
+    document.getElementById('stopwatch').innerHTML = displayMinutes + ':' + displaySeconds;
 
-// }
+}
 
-// function play(){
-//     if(status === false){
-//         interval = window.setInterval(stopWatch, 1000)
-//         status = true
-//     } else {
-//         window.clearInterval(interval);
-//         status = false
-//     }
-// }
+function play(){
+    if(status === false){
+        interval = window.setInterval(stopWatch, 1000)
+        status = true
+    } else {
+        window.clearInterval(interval);
+        status = false
+    }
+}
 
 /* ======================
 EVENT LISTENERS
 =======================*/
 startButton.addEventListener('click', toggleFirstModal);
 continueButton.addEventListener('click', openGrid);
-//playButton.addEventListener('click', play)
+playButton.addEventListener('click', play)
 resetButton.addEventListener('click', openGrid)
 // continueButton.addEventListener('click', toggleContainer)
 // constinue2Button.addEventListener('click', openGrid)

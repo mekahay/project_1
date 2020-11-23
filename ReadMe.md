@@ -6,10 +6,9 @@ Build Status
 Working with room for improvement and expansion.
 
 Unsolved problems
-1. removing the 'flip' class from the unmatched cards so they can be used again
-2. moving on the the next level
-3. decrementing points as time lapses 
-
+1. moving on the the next level
+2. decrementing points as time lapses 
+3. removing the 'flip' class from the unmatched cards so they can be used again
 References/credits
 // // modal appears on 'click' modal dissapear, game board appears
 // // player click play, on 'click' time begins to increase 
@@ -36,3 +35,6 @@ References/credits
 // // function for cards flipping back (set interval 1500)
 // // 
 // // if all cards flipped clock stops game over modal of pts appears
+// // ALL Instructors couldn't have done it without you!
+// // CJ & Tyler K...emotional support
+// // Shout out to squad 1!!! 
