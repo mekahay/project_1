@@ -36,6 +36,8 @@ const gameBoard = document.getElementById('gameboard')
 const continueButton = document.querySelector('.continue')
 const playButton = document.getElementById('play')
 const resetButton = document.getElementById('reset')
+const points = document.querySelector('.points')
+
 
 //const container = document.querySelector('.container')
 
@@ -87,9 +89,15 @@ const animalArray = [
     }
 ] 
 
+
 /* ======================
 FUNCTIONS
 =======================*/
+//console.log(fullAnimalArray)
+const toggleFirstModal = () => {
+    firstModal.classList.toggle('open');
+};
+//Double the array (for matches) then shuffle    
 let fullArray = animalArray.concat(animalArray);
 const shuffle = () => {
     let i = fullArray.length, k , temp;
@@ -100,23 +108,15 @@ const shuffle = () => {
         fullArray[i] = temp;
     }
 }
- //console.log(fullAnimalArray)
-const toggleFirstModal = () => {
-    firstModal.classList.toggle('open');
-};
 //create grid for game board
-
-
-// const toggleContainer = () => {
-//     container.classList.toggle('open');
-// };
-
 const openGrid = () => {
     firstModal.remove();
     shuffle();
     createGrid();
     // toggleContainer();
 }    
+
+
 
 const createGrid = () => {
     let grid = document.createElement('div')
@@ -129,7 +129,7 @@ const createGrid = () => {
         
         const card = document.createElement('div');
         card.classList.add('card');
-        // card.setAttribute('id', index)
+        card.setAttribute('id', index)
         card.dataset.name = name;
         
         let back = document.createElement('div')
@@ -151,8 +151,25 @@ const createGrid = () => {
         
     const cards = document.querySelectorAll('.card');
 
+    class Player {
+        constructor (points){
+            this.points = points;
+        }
+        updatePoints(){
+            points.innerHTML = `
+            <div class='points'> 
+            Points: <span>${this.points}</span>
+            </div>`
+        }
+        addPoints(){
+            this.points = +10;
+            this.updatePoints();
+        }
+    
+    }
+    const player1 = new Player()
     function flip(evt) {
-        this.classList.add('flip');
+        this.classList.toggle('flip');
         //console.log(evt.target.parentElement.getAttribute('data-name'))
     }
     //adds event listener to all cards
@@ -168,13 +185,16 @@ const createGrid = () => {
     
     let flippedCards = [];
     //let matchedCards = document.getElementsByClassName("isMatch")
-   
+    let flippedCardsIds = [];
+    let matchedCards = [];
     const click = (event) => {
         flippedCards.push(event.target.parentElement.getAttribute('data-name'))
+        flippedCardsIds.push(event.target.parentElement.getAttribute('id'))
         console.log(flippedCards)
+        console.log(flippedCardsIds)
+
         if (flippedCards.length === 2){
             if(flippedCards[0] === flippedCards[1]) {
-                console.log(flippedCards)
                 isMatch();
             } else {
                 isNotMatch()
@@ -183,59 +203,54 @@ const createGrid = () => {
     }
 
     const isMatch = () => {
-        card.classList.add('isMatch')
         console.log('Match!')
+        //push isMatch cards into an array matchedCards
+        for (let i of flippedCardsIds) {
+            matchedCards.push(i);
+        }
+        //give matched cards a class of is
+        document.getElementById(flippedCardsIds[0]).classList.add('isMatch')
+        document.getElementById(flippedCardsIds[1]).classList.add('isMatch')
+        console.log(matchedCards)
+        //clear flipped arrays to start matching again
         flippedCards = [];
-        //changes class to isMatch, 
-        
-        // function addIsMatch(event) {
-        //     let addClassIsMatch = querySelector('.card')
-        //     addClassIsMatch.classList.add('isMatch')
-        // }
-        //add 10
-         
-
-        //add to completed array,
-        console.log('its a match!')
-
+        flippedCardsIds=[];
+        //add 10 points per match
+        player1.addPoints();
     }
-
+    // const matchedCardsArray = () => {
+    //         let matchedCardsArray = document.getElementsByClassName('isMatch')
+    //         const matchedCards = flippedCards
+    //         for (let i = 0; i < matchedCardsArray.length; i++) {
+    //                 console.log(matchedCardsArray[i])
+    //             }
+    //         }
+            
     const isNotMatch = () => {
-        document.getElementsByClassName('card').removeClassName('flip')
+        setTimeout(() => {
+        document.getElementById(flippedCardsIds[0]).classList.toggle('flip')
+        document.getElementById(flippedCardsIds[1]).classList.toggle('flip')
         console.log('No Match!')
         flippedCards = [];
-       
+        flippedCardsIds=[]  
+        }, 1000);
     }
 
 
-    // const match = (event) => {
-    //     matchedCards.push(event.target.getAttribute('.isMatch'))
-    //     if (matchedCards[] >= 12) {
-    //     add points
-    //     
-    //         //toggleCongratsModal();
-    //         console.log('you win!!')
-    //     }
-    // }
-    
- 
+    const nextLevel = () => {
+        if (matchedCards === 12) {
+            const nextLevelModal = document.createElement('div')
+            nextLevelModal.setAttribute('nextLevelModal')
+        }
+    }
+    // const toggleNextLevel= () => {
+    //     // if (matchedCards === 12)
+    //     nextLevelModal.classList('open');
+    // };    
 
     cards.forEach(card => card.addEventListener('click', click))
 }
 
-// function click(){
-//     let length = openCards.length;
-//     if (length === 2) {
-//         if (openCards[0].getAttribute('data-name') === openCards[1].getAttribute('data-name')) {
-//             isMatch();
-//         } else {
-//             isNotMatch();
-//         }
-//     }
-// }
-// function isMatch () {
-
-// }
 
 
 
@@ -263,7 +278,7 @@ const createGrid = () => {
 
 
 //stopwatch
-// if seconds/minutes is only 1 dig add 0 before value
+//if seconds/minutes is only 1 dig add 0 before value
 function stopWatch(){
     seconds++;
     //logic to determine when to increment next value
@@ -289,11 +304,9 @@ function stopWatch(){
 function play(){
     if(status === false){
         interval = window.setInterval(stopWatch, 1000)
-        document.getElementById('play').innerHTML = 'stop';
         status = true
     } else {
         window.clearInterval(interval);
-        document.getElementById('play').innerHTML = 'start'
         status = false
     }
 }
